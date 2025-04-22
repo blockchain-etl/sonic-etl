@@ -1,0 +1,4 @@
+requests
+google-cloud-pubsub
+protobuf==4.25.6
+python-dotenv

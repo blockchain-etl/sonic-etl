@@ -1,0 +1,68 @@
+{
+    "type": "record",
+    "name": "Receipt",
+    "namespace": "eth.receipts",
+    "fields": [
+      {
+        "name": "block_hash",
+        "type": "string"
+      },
+      {
+        "name": "block_number",
+        "type": "long"
+      },
+      {
+        "name": "block_timestamp",
+        "type": "long"
+      },
+      {
+        "name": "transaction_hash",
+        "type": "string"
+      },
+      {
+        "name": "transaction_index",
+        "type": "long"
+      },
+      {
+        "name": "from_address",
+        "type": "string"
+      },
+      {
+        "name": "to_address",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "contract_address",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "cumulative_gas_used",
+        "type": "long"
+      },
+      {
+        "name": "gas_used",
+        "type": "long"
+      },
+      {
+        "name": "effective_gas_price",
+        "type": "long"
+      },
+      {
+        "name": "logs_bloom",
+        "type": "string"
+      },
+      {
+        "name": "root",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "status",
+        "type": ["null", "int"],
+        "default": null
+      }
+    ]
+  }
+  

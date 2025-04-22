@@ -1,0 +1,113 @@
+syntax = "proto2";
+
+package etl.transactions;
+
+
+message Transaction {
+
+
+  // Address and storage keys pair that the transaction 
+  // plans to access and has pre-paid gas for.
+  message AddressStorageKeyPair {
+    // Smart contract or wallet address.
+    // (BQ -> String)
+    optional string address = 1;
+    // Storage keys for accessing the Merkle tree state.
+    // (BQ -> String)
+    repeated string storage_keys = 2;
+  }
+
+  //   COMMON BLOCK FIELDS
+
+  // Hash of the block in which this transaction was located.
+  // (BQ->String)
+  required string block_hash = 1;
+  // Number of the block in which this transaction was located.
+  // (BQ->Integer)
+  required int64 block_number = 2;
+  // Unix timestamp when the block was added to the blockchain.
+  // (BQ->Timestamp)
+  required int64 block_timestamp = 3;
+
+  //   END OF COMMON BLOCK FIELDS
+
+  //   COMMON TX FIELDS
+
+  // Hash of the transaction.
+  // (BQ-> String)
+  required string transaction_hash = 4;
+  // The transaction's index position in the block.
+  // (BQ -> Integer)
+  required int64 transaction_index = 5;
+  // Number of transactions made by the sender prior to this one.
+  // (BQ->Integer)
+  required int64 nonce = 6;
+
+  //   END OF TX FIELDS
+
+  // Address of the sender.
+  // (BQ -> String)
+  required string from_address = 7;
+  // Address of the receiver.
+  // (BQ -> String)
+  optional string to_address = 8;
+
+  // Value transferred in Wei. A decimal number represented as 
+  // a BIGNUMERIC to preserve
+  // up to 128-bit numeric precision
+  // (BQ->BigNumeric)
+  required string value = 9;
+  // Value transferred in Wei. A decimal number represented in 
+  // STRING format to preserve
+  // full 256-bit numeric precision.
+  // (BQ->String)
+  required string value_lossless = 10;
+  // Price per gas unit provided by the sender in Wei.
+  // (BQ->Integer)
+  optional int64 gas_price = 11;
+  // Quantity of gas units provided by the sender.
+  // (BQ->Integer)
+  required int64 gas = 12;
+  // Maximum fee per unit of gas for this transaction.
+  // (BQ->Integer)
+  optional int64 max_fee_per_gas = 13;
+  // Maximum priority fee per unit of gas for this transaction.
+  // (BQ->Integer)
+  optional int64 max_priority_fee_per_gas = 14;
+
+  // Data sent along with the transaction, with a maximum size of 32 bytes.
+  // (BQ->String)
+  required string input = 15;
+
+  // Maximum priority fee per unit of gas for this transaction.
+  // (BQ->Integer)
+  required uint32 transaction_type = 16;
+
+  // Chain ID used in transaction signing.
+  // (BQ->Integer)
+  optional int64 chain_id = 17;
+
+  // List of addresses and storage keys that the 
+  // transaction plans to access and has pre-paid gas for.
+  repeated AddressStorageKeyPair access_list = 18;
+
+  //   SIGNATURES
+
+  // ECDSA signature r.
+  // (BQ -> String)
+  optional string r = 19;
+  // ECDSA signature s.
+  // (BQ -> String)
+  optional string s = 20;
+  // ECDSA signature v.
+  // (BQ -> String)
+  optional string v = 21;
+  // ECDSA signature y_parity.
+  // (BQ -> String)
+  optional string y_parity = 22;
+
+  //   EVM OTHER FIELDSOTHER FIELDS
+
+  required int64 trace_count = 23;
+
+}

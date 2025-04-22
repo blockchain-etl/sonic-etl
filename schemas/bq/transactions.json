@@ -1,0 +1,154 @@
+[
+  {
+    "name": "block_hash",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Hash of the block in which this transaction was located."
+  },
+  {
+    "name": "block_number",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Number of the block in which this transaction was located."
+  },
+  {
+    "name": "block_timestamp",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "Unix timestamp when the block was added to the blockchain."
+  },
+  {
+    "name": "transaction_hash",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Hash of the transaction."
+  },
+  {
+    "name": "transaction_index",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "The transaction's index position in the block."
+  },
+  {
+    "name": "nonce",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Number of transactions made by the sender prior to this one."
+  },
+  {
+    "name": "from_address",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Address of the sender."
+  },
+  {
+    "name": "to_address",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Address of the receiver."
+  },
+  {
+    "name": "value",
+    "type": "BIGNUMERIC",
+    "mode": "REQUIRED",
+    "description": "Value transferred in Wei. A decimal number represented as a BIGNUMERIC to preserve up to 128-bit numeric precision."
+  },
+  {
+    "name": "value_lossless",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Value transferred in Wei. A decimal number represented in STRING format to preserve full 256-bit numeric precision."
+  },
+  {
+    "name": "gas",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Quantity of gas units provided by the sender."
+  },
+  {
+    "name": "gas_price",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Price per gas unit provided by the sender in Wei."
+  },
+  {
+    "name": "input",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Data sent along with the transaction, with a maximum size of 32 bytes."
+  },
+  {
+    "name": "max_fee_per_gas",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Maximum fee per unit of gas for this transaction."
+  },
+  {
+    "name": "max_priority_fee_per_gas",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Maximum priority fee per unit of gas for this transaction."
+  },
+  {
+    "name": "transaction_type",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Type of the transaction."
+  },
+  {
+    "name": "chain_id",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "Chain ID used in transaction signing."
+  },
+  {
+    "name": "access_list",
+    "type": "RECORD",
+    "mode": "REPEATED",
+    "description": "List of addresses and storage keys that the transaction plans to access and has pre-paid gas for.",
+    "fields": [
+      {
+        "name": "address",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Smart contract or wallet address."
+      },
+      {
+        "name": "storage_keys",
+        "type": "STRING",
+        "mode": "REPEATED",
+        "description": "Storage keys for accessing the Merkle tree state."
+      }
+    ]
+  },
+  {
+    "name": "r",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "ECDSA signature r."
+  },
+  {
+    "name": "s",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "ECDSA signature s."
+  },
+  {
+    "name": "v",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "ECDSA signature v."
+  },
+  {
+    "name": "y_parity",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "ECDSA signature y_parity."
+  },
+  {
+    "name": "trace_count",
+    "type": "INTEGER",
+    "mode": "NULLABLE",
+    "description": "The number of traces from this transaction."
+  }
+]

@@ -1,0 +1,42 @@
+environment:
+serviceAccountName: etl-app-sa
+rust_log: info
+
+mainnet:
+  replicaCount: 1
+  namespace: mainnet
+  enabled: true
+  configMap:
+    data: |
+      QUEUE_NAME_BLOCKS="block-records-mainnet"
+      QUEUE_NAME_DECODED_EVENTS="decoded-event-records-mainnet"
+      QUEUE_NAME_LOGS="log-records-mainnet"
+      QUEUE_NAME_RECEIPTS="receipt-records-mainnet"
+      QUEUE_NAME_TRANSACTIONS="transaction-records-mainnet"
+      QUEUE_NAME_TRACES="trace-records-mainnet"
+      ENABLE_METRICS=true
+      METRICS_PORT=4000
+      HEALTH_CHECKS_PORT=8080
+      OUTPUT_DIR="./output/"
+      PROVIDER_URL="http://35.226.30.108:80/"
+      RUST_LOG=info
+  resources:
+    memory:
+      requests: 500Mi
+      limits: 1Gi
+  env:
+    queue_name_blocks: block-records-mainnet
+    queue_name_decoded_events: decoded-event-records-mainnet
+    queue_name_logs: log-records-mainnet
+    queue_name_receipts: receipt-records-mainnet
+    queue_name_transactions: transaction-records-mainnet
+    queue_name_traces: trace-records-mainnet
+    enable_metrics: true
+    metrics_port: 4000
+    health_checks_port: 8080
+    output_dir: ./output/
+    provider_url: http://35.226.30.108:80/
+  image:
+    repository: us-central1-docker.pkg.dev/etl-services-447307/sonic-etl/sonic-extractor-transformer-mainnet
+    tag: 08f7de2
+  terminationGracePeriodSeconds: 300

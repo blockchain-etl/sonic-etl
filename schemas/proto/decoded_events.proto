@@ -1,0 +1,64 @@
+syntax = "proto2";
+
+package etl.decoded_events;
+
+message DecodedEvent {
+
+
+  //   COMMON BLOCK FIELDS
+
+  // Hash of the block this event was emitted from
+  // Block Hash (BQ->BigNumeric)
+  required string block_hash = 1;
+  // Number of the block this event was emitted from.
+  // Block Number (BQ->Integer)
+  required int64 block_number = 2;
+  // Unix timestamp when the block was added to the blockchain.
+  // Block Timestamp (BQ->Timestamp)
+  required int64 block_timestamp = 3;
+
+  //   END OF COMMON BLOCK FIELDS
+
+  //   COMMON TX FIELDS
+
+  // Hash of the transaction this event was emitted from.
+  // (BQ -> String)
+  required string transaction_hash = 4;
+  // The transaction's index position in the block.
+  // (BQ->Integer)
+  required int64 transaction_index = 5;
+
+  //   END OF TX FIELDS
+
+  //   COMMON LOG FIELDS
+  
+  // The event's index position in the block.
+  // (BQ->Integer)
+  required int64 log_index = 6;
+
+  //   END OF COMMON LOG FIELDS
+
+  //   OTHER
+
+  // Address from which this event originated.
+  // (BQ -> String)
+  optional string address = 7;
+  // Keccak hash of the event signature.
+  // (BQ -> String)
+  optional string event_hash = 8;
+  // Function signature of the event.
+  // (BQ -> String)
+  optional string event_signature = 9;
+  // The original indexed topics of the event.
+  // (BQ -> String)
+  repeated string topics = 10;
+  // The decoded arguments of the event as a JSON array.
+  // (BQ->Json)
+  optional string args = 11;
+  // Whether or not the event was orphaned off the main chain.
+  // (BQ->Bool)
+  optional bool removed = 12;
+
+  //   END OF OTHER
+
+}

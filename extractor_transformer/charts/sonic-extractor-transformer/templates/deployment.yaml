@@ -1,0 +1,99 @@
+{{- if .Values.mainnet.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: sonic-extractor-transformer-mainnet
+  name: sonic-extractor-transformer-mainnet
+  namespace: {{ .Values.mainnet.namespace }}
+spec:
+  replicas: {{ .Values.mainnet.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sonic-extractor-transformer-mainnet
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sonic-extractor-transformer-mainnet
+    spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      containers:
+        - name: sonic-extractor-transformer
+          image: {{ .Values.mainnet.image.repository }}:{{ .Values.mainnet.image.tag }}
+          command: ["sh"]
+          args:
+          - -c
+          - >-
+            blockchain_etl_indexer index-subscription indexing-ranges-mainnet-sub
+          env:
+          - name: RUST_LOG
+            value: {{ .Values.rust_log }}
+          resources:
+            requests:
+              memory: {{ .Values.mainnet.resources.memory.requests }}
+            limits:
+              memory: {{ .Values.mainnet.resources.memory.limits }}
+          ports:
+          - containerPort: 4000
+          - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/.env
+              subPath: .env
+      volumes:
+        - name: config-volume
+          configMap:
+            name: extractor-transformer-config
+      restartPolicy: Always
+      terminationGracePeriodSeconds: {{ .Values.mainnet.terminationGracePeriodSeconds }}
+---
+{{- end }}
+{{- if .Values.testnet.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: sonic-extractor-transformer-testnet
+  name: sonic-extractor-transformer-testnet
+  namespace: {{ .Values.testnet.namespace }}
+spec:
+  replicas: {{ .Values.testnet.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sonic-extractor-transformer-testnet
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sonic-extractor-transformer-testnet
+    spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      containers:
+        - name: sonic-extractor-transformer
+          image: {{ .Values.testnet.image.repository }}:{{ .Values.testnet.image.tag }}
+          command: ["sh"]
+          args:
+          - -c
+          - >-
+            blockchain_etl_indexer index-subscription indexing-ranges-testnet-sub
+          env:
+          - name: RUST_LOG
+            value: {{ .Values.rust_log }}
+          resources:
+            requests:
+              memory: {{ .Values.testnet.resources.memory.requests }}
+            limits:
+              memory: {{ .Values.testnet.resources.memory.limits }}
+          ports:
+          - containerPort: 4000
+          - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/.env
+              subPath: .env
+      volumes:
+        - name: config-volume
+          configMap:
+            name: extractor-transformer-config
+      restartPolicy: Always
+      terminationGracePeriodSeconds: {{ .Values.testnet.terminationGracePeriodSeconds }}
+{{- end }}

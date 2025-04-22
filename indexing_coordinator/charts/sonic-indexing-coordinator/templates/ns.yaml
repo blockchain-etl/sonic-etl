@@ -1,0 +1,19 @@
+{{- if .Values.mainnet.enabled }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.mainnet.namespace }}
+  labels:
+    environment: mainnet
+---
+{{- end }}
+
+{{- if .Values.testnet.enabled }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.testnet.namespace }}
+  labels:
+    environment: testnet
+---
+{{- end }}

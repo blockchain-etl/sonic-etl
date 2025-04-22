@@ -1,0 +1,137 @@
+syntax = "proto2";
+
+package etl.traces;
+
+message Trace {
+
+  // Action being carried out by this trace.
+  message TraceAction {
+    // Address of the sender. Null for "suicide" and "reward" traces.
+    // (BQ -> String) 
+    optional string from_address = 1;
+    // Address of the receiver. Null for "suicide" and "reward" traces.
+    // (BQ -> String)
+    optional string to_address = 2;
+    // Trace call type. One of "call", "callcode", "staticcall" or 
+    // "delegatecall". Available only for "call" traces.
+    // (BQ -> String)
+    optional string call_type = 3;
+    // Amount of gas provided by the sender.
+    // (BQ -> Integer)
+    optional int64 gas = 4;
+    // Input sent along with the transaction. Available only for "call" traces.
+    // (BQ -> String)
+    optional string input = 5;
+    // Value transferred by this trace in Wei. A decimal number represented 
+    // as a BIGNUMERIC to preserve up to 128-bit numeric precision. 
+    // Available only for "call" traces.
+    // (BQ -> BigNumeric)
+    optional string value = 6;
+    // Value transferred by this trace in Wei. A decimal number represented 
+    // in STRING format to preserve full 256-bit numeric precision. Available 
+    // only for "call" traces.
+    // (BQ -> String)
+    optional string value_lossless = 7;
+    // Input sent along with the transaction that deploys the contract. 
+    // Available only for
+    // "create" traces.
+    // (BQ -> String)
+    optional string init = 8;
+    // Recipient of the block or uncle reward. Available only for 
+    // "reward" traces.
+    // (BQ -> String)
+    optional string author = 9;
+    // Reward type. One of "block" or "uncle". Available only for 
+    // "reward" traces.
+    // (BQ -> String)
+    optional string reward_type = 10;
+    // Address to which the remaining balance of a suicided contract 
+    // was transferred.
+    // Value is set only for "suicide" traces.
+    // (BQ -> String)
+    optional string refund_address = 11;
+    // Refund balance in Wei for a suicided contract. A decimal number 
+    // represented as a BIGNUMERIC to preserve up to 128-bit numeric 
+    // precision. Available only for "suicide" traces.
+    // (BQ -> BigNumeric)
+    optional string refund_balance = 12;
+    // Refund balance in Wei for a suicided contract. A decimal number 
+    // represented in STRING format to preserve full 256-bit numeric 
+    // precision. Available only for "suicide" traces.
+    // (BQ -> String)
+    optional string refund_balance_lossless = 13;
+    // Address of the contract being self-destructed. Available 
+    // only for "suicide" traces.
+    // (BQ -> String)
+    optional string self_destructed_address = 14;
+  }
+
+  message TraceResult {
+    // Gas used by this trace alone.
+    // (BQ -> Integer)
+    optional int64 gas_used = 1;
+    // Value returned by the contract call. Empty if the RETURN 
+    // method was not executed.
+    // (BQ -> String)
+    optional string output = 2;
+    // Address of the deployed smart contract. Available only 
+    // for "create" traces.
+    // (BQ -> String)
+    optional string address = 3;
+    // Code of the deployed smart contract. Available only for "create" traces.
+    // (BQ -> String)
+    optional string code = 4;
+
+  }
+
+  //   COMMON BLOCK FIELDS
+
+  // Hash of the block this trace was created from.
+  // Block Hash (BQ->BigNumeric)
+  required string block_hash = 1;
+  // Number of the block this trace was created from.
+  // Block Number (BQ->Integer)
+  required uint64 block_number = 2;
+  // Unix timestamp when the block was added to the blockchain.
+  // Block Timestamp (BQ->Timestamp)
+  required uint64 block_timestamp = 3;
+
+  //   END OF COMMON BLOCK FIELDS
+
+
+  //   COMMON TX FIELDS
+
+  // Hash of the transaction.
+  // (BQ-> String)
+  optional string transaction_hash = 4;
+  // The transaction's index position in the block.
+  // (BQ-> Integer)
+  optional int64 transaction_index = 5;
+
+  //   END OF COMMON TX FIELDS
+
+  // Trace type. One of "create", "suicide", "call" or "reward".
+  // (BQ -> String)
+  required string trace_type = 6;
+  // A sequence of indices that uniquely identifies this trace
+  // within the call tree. Available only for transaction-scoped traces.
+  // (BQ -> Integer)
+  repeated int64 trace_address = 7;
+  // Number of subtraces of this trace (more like an trace index).
+  // (BQ -> Integer)
+  required int64 subtrace_count = 8;
+
+  // Action being carried out by this trace.
+  // (BQ -> Record)
+  required TraceAction action = 9;
+  // Result of this trace.
+  // (BQ -> Record)
+  optional TraceResult result = 10;
+  // Error message of this trace, if any.
+  // (BQ -> String)
+  optional string error = 11;
+
+  // The index of the order returned
+  required uint64 trace_index = 12;
+
+}

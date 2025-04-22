@@ -1,0 +1,16 @@
+environment: 
+serviceAccountName: etl-app-sa
+GCPServiceAccountName: sonic-etl-app@etl-services-447307.iam.gserviceaccount.com
+
+mainnet:
+  replicaCount: 1
+  namespace: mainnet
+  enabled: true
+  env:
+    node_address: http://35.226.30.108:80/
+    gcp_project_id: etl-services-447307
+    network: mainnet
+  image:
+    repository: us-central1-docker.pkg.dev/etl-services-447307/sonic-etl/sonic-indexing-coordinator
+    tag: 7279e7f
+

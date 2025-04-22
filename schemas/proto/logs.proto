@@ -1,0 +1,54 @@
+syntax = "proto2";
+
+package etl.logs;
+
+message Log {
+  
+  //   COMMON BLOCK FIELDS
+
+  // Hash of the block this log was created from.
+  // (BQ->String)
+  required string block_hash = 1;
+  // Number of the block this log was created from.
+  // (BQ->Integer)
+  required int64 block_number = 2;
+  // Unix timestamp when the block was added to the blockchain.
+  // BQ->Timestamp
+  required int64 block_timestamp = 3;
+
+  //   END OF COMMON BLOCK FIELDS
+
+  //   COMMON TX FIELDS
+
+  // Hash of the transaction this log was created from.
+  // (BQ -> String)
+  required string transaction_hash = 4;
+  // The transaction's index position in the block
+  // (BQ->Integer)
+  required int64 transaction_index = 5;
+
+  //   END OF TX FIELDS
+
+  //   COMMON LOG FIELDS
+
+  // The log's index position in the block.
+  // (BQ->Integer)
+  required int64 log_index = 6;
+
+  //   END OF COMMON LOG FIELDS
+
+  //   OTHER
+
+  // Address from which this log originated.
+  // (BQ -> String)
+  optional string address = 7;
+  // Contains one or more 32-byte non-indexed arguments of the log.
+  // (BQ -> String)
+  optional string data = 8;
+  // Array of 0 to 4 32-byte hex of indexed log arguments.
+  // (BQ -> String)
+  repeated string topics = 9;
+  // Whether or not the log was orphaned off the main chain.
+  // (BQ -> Bool)
+  optional bool removed = 10;
+}

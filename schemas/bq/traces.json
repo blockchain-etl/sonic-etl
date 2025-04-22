@@ -1,0 +1,187 @@
+[
+    {
+      "name": "block_hash",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "Hash of the block this trace was created from."
+    },
+    {
+      "name": "block_number",
+      "type": "INTEGER",
+      "mode": "REQUIRED",
+      "description": "Number of the block this trace was created from."
+    },
+    {
+      "name": "block_timestamp",
+      "type": "TIMESTAMP",
+      "mode": "REQUIRED",
+      "description": "Unix timestamp when the block was added to the blockchain."
+    },
+    {
+      "name": "transaction_hash",
+      "type": "STRING",
+      "mode": "NULLABLE",
+      "description": "Hash of the transaction."
+    },
+    {
+      "name": "transaction_index",
+      "type": "INTEGER",
+      "mode": "NULLABLE",
+      "description": "The transaction's index position in the block."
+    },
+    {
+      "name": "trace_type",
+      "type": "STRING",
+      "mode": "REQUIRED",
+      "description": "Trace type. One of 'create', 'suicide', 'call' or 'reward'."
+    },
+    {
+      "name": "trace_address",
+      "type": "INTEGER",
+      "mode": "REPEATED",
+      "description": "A sequence of indices that uniquely identifies this trace within the call tree. Available only for transaction-scoped traces."
+    },
+    {
+      "name": "subtrace_count",
+      "type": "INTEGER",
+      "mode": "REQUIRED",
+      "description": "Number of subtraces of this trace."
+    },
+    {
+      "name": "action",
+      "type": "RECORD",
+      "mode": "REQUIRED",
+      "description": "Action being carried out by this trace.",
+      "fields": [
+        {
+          "name": "from_address",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Address of the sender. Null for 'suicide' and 'reward' traces."
+        },
+        {
+          "name": "to_address",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Address of the receiver. Null for 'suicide' and 'reward' traces."
+        },
+        {
+          "name": "call_type",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Trace call type. One of 'call', 'callcode', 'staticcall' or 'delegatecall'. Available only for 'call' traces."
+        },
+        {
+          "name": "gas",
+          "type": "INTEGER",
+          "mode": "NULLABLE",
+          "description": "Amount of gas provided by the sender."
+        },
+        {
+          "name": "input",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Input sent along with the transaction. Available only for 'call' traces."
+        },
+        {
+          "name": "value",
+          "type": "BIGNUMERIC",
+          "mode": "NULLABLE",
+          "description": "Value transferred by this trace in Wei. A decimal number represented as a BIGNUMERIC to preserve up to 128-bit numeric precision. Available only for 'call' traces."
+        },
+        {
+          "name": "value_lossless",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Value transferred by this trace in Wei. A decimal number represented in STRING format to preserve full 256-bit numeric precision. Available only for 'call' traces."
+        },
+        {
+          "name": "init",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Input sent along with the transaction that deploys the contract. Available only for 'create' traces."
+        },
+        {
+          "name": "author",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Recipient of the block or uncle reward. Available only for 'reward' traces."
+        },
+        {
+          "name": "reward_type",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Reward type. One of 'block' or 'uncle'. Available only for 'reward' traces."
+        },
+        {
+          "name": "refund_address",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Address to which the remaining balance of a suicided contract was transferred. Value is set only for 'suicide' traces."
+        },
+        {
+          "name": "refund_balance",
+          "type": "BIGNUMERIC",
+          "mode": "NULLABLE",
+          "description": "Refund balance in Wei for a suicided contract. A decimal number represented as a BIGNUMERIC to preserve up to 128-bit numeric precision. Available only for 'suicide' traces."
+        },
+        {
+          "name": "refund_balance_lossless",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Refund balance in Wei for a suicided contract. A decimal number represented in STRING format to preserve full 256-bit numeric precision. Available only for 'suicide' traces."
+        },
+        {
+          "name": "self_destructed_address",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Address of the contract being self-destructed. Available only for 'suicide' traces."
+        }
+      ]
+    },
+    {
+      "name": "result",
+      "type": "RECORD",
+      "mode": "NULLABLE",
+      "description": "Result of this trace.",
+      "fields": [
+        {
+          "name": "gas_used",
+          "type": "INTEGER",
+          "mode": "NULLABLE",
+          "description": "Gas used by this trace alone."
+        },
+        {
+          "name": "output",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Value returned by the contract call. Empty if the RETURN method was not executed."
+        },
+        {
+          "name": "address",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Address of the deployed smart contract. Available only for 'create' traces."
+        },
+        {
+          "name": "code",
+          "type": "STRING",
+          "mode": "NULLABLE",
+          "description": "Code of the deployed smart contract. Available only for 'create' traces."
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "type": "STRING",
+      "mode": "NULLABLE",
+      "description": "Error message of this trace, if any."
+    },
+    {
+      "name": "trace_index",
+      "type": "INTEGER",
+      "mode": "REQUIRED",
+      "description": "A number representing the order on which the trace was returned to the indexer.  Unique in respect to each block number."
+    }
+  ]
+  

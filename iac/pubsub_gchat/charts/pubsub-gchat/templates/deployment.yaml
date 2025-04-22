@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pubsubgchat.fullname" . }}
+  namespace: {{ .Values.namespace }}  
+  labels:
+    app: pubsub-gchat
+    release: {{ .Release.Name }}
+spec:
+  selector:
+    matchLabels:
+      app: pubsub-gchat
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: pubsub-gchat
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}  
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          envFrom:
+            - configMapRef:
+                name: {{ include "pubsubgchat.fullname" . }}

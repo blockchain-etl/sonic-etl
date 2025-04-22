@@ -1,0 +1,8 @@
+namespace: mainnet
+gcpProjectId: "etl-services-447307"
+pubsubTopics: "errors-blocks-mainnet,errors-decoded_events-mainnet,errors-logs-mainnet,errors-receipts-mainnet,errors-traces-mainnet,errors-transactions-mainnet" // error tpoics' names
+googleChatWebhook: "" // google chat webhook url
+serviceAccountName: "etl-app-sa" // the service account name for running this application
+image:
+  repository: us-central1-docker.pkg.dev/etl-services-447307/sonic-etl/sonic-pubsub-gchat
+  tag: "0.4"

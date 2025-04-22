@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "pubsubgchat.fullname" . }}
+  namespace: {{ .Values.namespace }}  
+data:
+  GCP_PROJECT_ID: {{ .Values.gcpProjectId }}  
+  PUBSUB_TOPICS: {{ .Values.pubsubTopics  }}  
+  GOOGLE_CHAT_WEBHOOK: {{ .Values.googleChatWebhook }}  

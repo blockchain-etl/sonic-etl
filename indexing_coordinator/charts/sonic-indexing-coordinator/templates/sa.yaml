@@ -1,0 +1,19 @@
+{{- if .Values.mainnet.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.serviceAccountName }}
+  namespace: {{ .Values.mainnet.namespace }}
+  annotations:
+    iam.gke.io/gcp-service-account: {{ .Values.GCPServiceAccountName }}
+{{- end}}
+---
+{{- if .Values.testnet.enabled }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.serviceAccountName }}
+  namespace: {{ .Values.testnet.namespace }}
+  annotations:
+    iam.gke.io/gcp-service-account: {{ .Values.GCPServiceAccountName }}
+{{- end }}

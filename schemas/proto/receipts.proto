@@ -1,0 +1,62 @@
+syntax = "proto2";
+
+package etl.receipts;
+
+message Receipt {
+  
+  //   COMMON BLOCK FIELDS
+  
+  // Hash of the block in which this transaction was located.
+  // (BQ->String)
+  required string block_hash = 1;
+  // Number of the block this trace was created from.
+  // (BQ->Integer)
+  required int64 block_number = 2;
+  // Unix timestamp when the block was added to the blockchain.
+  // (BQ->Timestamp)
+  required int64 block_timestamp = 3;
+
+  //   END OF COMMON BLOCK FIELDS
+
+  //   COMMON TX FIELDS
+
+  // Hash of the transaction.
+  // (BQ -> String)
+  required string transaction_hash = 4;
+  // The transaction's index position in the block.
+  // (BQ -> Integer)
+  required int64 transaction_index = 5;
+
+  //   END OF COMMON TX FIELDS
+
+  //   OTHER
+
+  // Address of the sender.
+  // (BQ -> String)
+  required string from_address = 6;
+  // Address of the receiver.
+  // (BQ -> String)
+  optional string to_address = 7;
+  // Hexadecimal-encoded address of new contract or absent if 
+  // no contract was created.
+  // (BQ -> String)
+  optional string contract_address = 8;
+  // Gas used by this and all preceding transactions in the block.
+  // (BQ -> Integer)
+  required int64 cumulative_gas_used = 9;
+  // Gas used by this transaction alone.
+  // (BQ -> Integer)
+  required int64 gas_used = 10;
+  // Actual value per gas deducted from the sender's account.
+  // (BQ -> Integer)
+  required int64 effective_gas_price = 11;
+  // Bloom filter of the logs from this transaction.
+  // (BQ -> String)
+  required string logs_bloom = 12;
+  // Post-transaction state root.
+  // (BQ -> String)
+  optional string root = 13;
+  // Either 1 (success) or 0 (failure).
+  optional uint32 status = 14;
+  //   END OF OTHER
+}

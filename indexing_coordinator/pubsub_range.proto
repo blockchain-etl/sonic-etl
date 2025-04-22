@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package etl.request;
+
+
+message IndexingRequest {
+
+  required uint64 start = 1;
+  required uint64 end = 2;
+
+  // Whether or not to include
+  required bool blocks = 3 [default=true];
+  required bool logs = 4 [default=true];
+  required bool transactions = 5 [default=true];
+  required bool receipts = 6 [default=true];
+  required bool decoded_events = 7 [default=true];
+  required bool traces = 8 [default=true];
+}

@@ -1,0 +1,157 @@
+{
+  "type": "record",
+  "name": "Block",
+  "namespace": "eth.blocks",
+  "fields": [
+    {
+      "name": "block_hash",
+      "type": "string"
+    },
+    {
+      "name": "block_number",
+      "type": "long"
+    },
+    {
+      "name": "block_timestamp",
+      "type": "long"
+    },
+    {
+      "name": "parent_hash",
+      "type": "string"
+    },
+    {
+      "name": "sha3_uncles",
+      "type": "string"
+    },
+    {
+      "name": "miner",
+      "type": "string"
+    },
+    {
+      "name": "state_root",
+      "type": "string"
+    },
+    {
+      "name": "transaction_root",
+      "type": "string"
+    },
+    {
+      "name": "receipts_root",
+      "type": "string"
+    },
+    {
+      "name": "logs_bloom",
+      "type": "string"
+    },
+    {
+      "name": "difficulty",
+      "type": "string"
+    },
+    {
+      "name": "gas_limit",
+      "type": "string"
+    },
+    {
+      "name": "gas_used",
+      "type": "string"
+    },
+    {
+      "name": "total_difficulty",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "mix_hash",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "nonce",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "base_fee_per_gas",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "withdrawals_root",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "parent_beacon_block_root",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "transactions_count",
+      "type": "long"
+    },
+    {
+      "name": "size",
+      "type": "long"
+    },
+    {
+      "name": "withdrawals",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "Withdrawal",
+          "fields": [
+            {
+              "name": "index",
+              "type": "long"
+            },
+            {
+              "name": "validator_index",
+              "type": "long"
+            },
+            {
+              "name": "address",
+              "type": "string"
+            },
+            {
+              "name": "amount",
+              "type": "string"
+            },
+            {
+              "name": "amount_lossless",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "extra_data",
+      "type": "string"
+    },
+    {
+      "name": "log_count",
+      "type": "long"
+    },
+    {
+      "name": "token_transfer_count",
+      "type": "long"
+    },
+    {
+      "name": "account_state_count",
+      "type": "long"
+    },
+    {
+      "name": "decoded_event_count",
+      "type": "long"
+    },
+    {
+      "name": "receipt_count",
+      "type": "long"
+    },
+    {
+      "name": "trace_count",
+      "type": "long"
+    }
+  ]
+}

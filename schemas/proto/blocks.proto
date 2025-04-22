@@ -1,0 +1,150 @@
+syntax = "proto2";
+
+package etl.blocks;
+
+message Block {
+
+  // A validator Withdrawal
+  message Withdrawal {
+    // Index of the withdrawal.
+    // (BQ->Integer)
+    required int64 index = 1;
+    // Index of the validator that generated withdrawal.
+    // (BQ->Integer)
+    required int64 validator_index = 2;
+    // Recipient address for withdrawal value.
+    // (BQ->String)
+    required string address = 3;
+    // Value transferred by the withdrawal in Wei. A decimal number
+    // represented as a BIGNUMERIC to preserve up to 128-bit numeric precision.
+    // (BQ->BigNumeric)
+    required string amount = 4;
+    // Value transferred by the withdrawal in Wei. A decimal 
+    // number represented in
+    // STRING format to preserve full 256-bit numeric precision.
+    // (BQ->String)
+    required string amount_lossless = 5;
+  }
+
+  //   COMMON BLOCK FIELDS
+
+  // Hash of the block.
+  // BQ: STRING (i.e. 
+  // `0x03cd45e82085da35a8e19b94c1d76cac92ac72b2459233474fc958e8910045e2`)
+  required string block_hash = 1;
+  // Number of the block.
+  // BQ: INTEGER
+  required int64 block_number = 2;
+  // Unix timestamp when the block was added to the blockchain
+  // BQ: TIMESTAMP
+  required int64 block_timestamp = 3;
+
+  //   END OF COMMON BLOCK FIELDS
+
+  //   BLOCK HEADER
+
+  // Hash of the parent block.
+  // BQ: STRING 
+  // (i.e. `0x1114db6417a84652d4db4a887afa4db9d258c3e8527f9c5d749eb69d90eb7002`)
+  required string parent_hash = 4;
+  // SHA3 of the uncles data in the block.
+  // (BQ->STRING) 
+  // (i.e. `0x1114db6417a84652d4db4a887afa4db9d258c3e8527f9c5d749eb69d90eb7002`)
+  required string sha3_uncles = 5;
+  // Address of the beneficiary to whom the mining rewards were given.
+  // (BQ->STRING) (i.e. `0x0042d963dde2686a35b66d0dd666dff05d0af697`...)
+  required string miner = 6;
+  // Root of the final state trie of the block.
+  // (BQ->String)
+  required string state_root = 7;
+  // Root of the transaction trie of the block.
+  // (BQ->String)
+  required string transaction_root = 8;
+  // Root of the receipts trie of the block.
+  // (BQ->String)
+  required string receipts_root = 9;
+  // Bloom filter for the logs of the block 256 bytes
+  // (BQ -> String)
+  required string logs_bloom = 10;
+  // Difficulty for this block.
+  // (BQ-> BigNumeric)
+  required string difficulty = 11;
+  // Maximum gas allowed in this block.
+  // (BQ->Integer)
+  required string gas_limit = 12;
+  // Total gas used by all transactions in this block.
+  // (BQ->Numeric)
+  required string gas_used = 13;
+  // Accumulated difficulty of the chain until this block.
+  // (BQ->BigNumeric)
+  optional string total_difficulty = 14;
+  // 32-byte hash which proves, when combined with the nonce,
+  // that a sufficient amount of computation has been carried
+  // out on this block.
+  // (BQ->BigNumeric)
+  optional string mix_hash = 15;
+  // 8-byte integer in hexadecimal format. Used together with
+  // the mix hash to show the proof of work.
+  // (BQ->String)
+  optional string nonce = 16;
+  // Reserve price that transactions must pay for inclusion in this block.
+  // (BQ->Numeric)
+  optional string base_fee_per_gas = 17;
+  // Validator withdrawal root.
+  // (BQ->String)
+  optional string withdrawals_root = 18;
+  // (BQ->String)
+  optional string parent_beacon_block_root = 21;
+  //   END OF BLOCK HEADER
+
+  //   OTHER BLOCK DATA
+
+
+  // Number of transactions in the block.
+  // (BQ->Integer)
+  required int64 transactions_count = 23;
+
+  // Size of this block in bytes.
+  // (BQ->Integer)
+  required int64 size = 24;
+
+  // May be Empty. Validator withdrawals.
+  // (BQ->RECORD)
+  repeated Withdrawal withdrawals = 25;
+
+  // Extra data of this block.
+  // BQ: String (i.e. 
+  // `0xdc809a312e302e302b2b383136392d5257696e646f2f6d73762f4a4954`)
+  required string extra_data = 26;
+
+  //   END OF OTHER BLOCK DATA
+
+
+  //   SANITY CHECK FIELDS (not match Google's Ethereum dataset)
+
+  // Number of logs in block (should equal number of logs in log table)
+  // (BQ->Integer)
+  required int64 log_count = 100;
+  // Number of token transfers in block
+  // (BQ->Integer)
+  // int64 token_transfer_count = 103;
+  // Number of account_state items from this block
+  // (BQ->Integer)
+  // int64 account_state_count = 104;
+  // Number of decoded_events items from this block
+  // (BQ->Integer)
+  required int64 decoded_event_count = 105;
+  // Number of trace items from this block
+  // (BQ->Integer)
+  required int64 trace_count = 107;
+
+
+  // EXTRA DATA GOES HERE
+
+  // optional string blob_gas_used = 19;
+  // optional string excess_blob_gas = 20;
+  repeated string uncles = 22;
+
+  required int64 epoch = 111;
+
+}

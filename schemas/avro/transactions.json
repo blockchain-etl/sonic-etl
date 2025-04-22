@@ -1,0 +1,125 @@
+{
+    "type": "record",
+    "name": "Transaction",
+    "namespace": "eth.transactions",
+    "fields": [
+      {
+        "name": "block_hash",
+        "type": "string"
+      },
+      {
+        "name": "block_number",
+        "type": "long"
+      },
+      {
+        "name": "block_timestamp",
+        "type": "long"
+      },
+      {
+        "name": "transaction_hash",
+        "type": "string"
+      },
+      {
+        "name": "transaction_index",
+        "type": "long"
+      },
+      {
+        "name": "nonce",
+        "type": "long"
+      },
+      {
+        "name": "from_address",
+        "type": "string"
+      },
+      {
+        "name": "to_address",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "name": "value_lossless",
+        "type": "string"
+      },
+      {
+        "name": "gas_price",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "gas",
+        "type": "string"
+      },
+      {
+        "name": "max_fee_per_gas",
+        "type": ["null", "long"],
+        "default": null
+      },
+      {
+        "name": "max_priority_fee_per_gas",
+        "type": ["null", "long"],
+        "default": null
+      },
+      {
+        "name": "input",
+        "type": "string"
+      },
+      {
+        "name": "transaction_type",
+        "type": "int"
+      },
+      {
+        "name": "chain_id",
+        "type": ["null", "long"],
+        "default": null
+      },
+      {
+        "name": "access_list",
+        "type": {
+          "type": "array",
+          "items": {
+            "type": "record",
+            "name": "AddressStorageKeyPair",
+            "fields": [
+              {
+                "name": "address",
+                "type": ["null", "string"],
+                "default": null
+              },
+              {
+                "name": "storage_keys",
+                "type": {
+                  "type": "array",
+                  "items": "string"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "r",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "s",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "v",
+        "type": ["null", "string"],
+        "default": null
+      },
+      {
+        "name": "y_parity",
+        "type": ["null", "string"],
+        "default": null
+      }
+    ]
+  }
+  

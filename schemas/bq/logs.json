@@ -1,0 +1,52 @@
+[
+    {
+        "name": "block_hash",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "block_number",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "block_timestamp",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "transaction_hash",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "transaction_index",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "log_index",
+        "type": "INTEGER",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "address",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "data",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "topics",
+        "type": "STRING",
+        "mode": "REPEATED"
+    },
+    {
+        "name": "removed",
+        "type": "BOOL",
+        "mode": "NULLABLE"
+    }
+]

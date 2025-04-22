@@ -1,0 +1,39 @@
+{{- if .Values.mainnet.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: sonic-extractor-transformer-mainnet
+  name: sonic-extractor-transformer-mainnet
+  namespace: {{ .Values.mainnet.namespace }}
+spec:
+  selector:
+    app.kubernetes.io/name: sonic-extractor-transformer-mainnet
+  ports:
+    - name: "4000"
+      port: 4000
+      targetPort: 4000
+    - name: "8080"
+      port: 8020
+      targetPort: 8080
+---
+{{- end }}
+{{- if .Values.testnet.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: sonic-extractor-transformer-testnet
+  name: sonic-extractor-transformer-testnet
+  namespace: {{ .Values.testnet.namespace }}
+spec:
+  selector:
+    app.kubernetes.io/name: sonic-extractor-transformer-testnet
+  ports:
+    - name: "4000"
+      port: 4000
+      targetPort: 4000
+    - name: "8080"
+      port: 8020
+      targetPort: 8080
+{{- end }}

@@ -1,0 +1,8 @@
+Cargo.lock
+target/
+.vscode/
+extractor_transformer/output/
+/extractor_transformer/output/
+/extractor_transformer/src/schemas
+.terraform*
+>>>>>>> eda304aa20af797bdcdf3c411ffedede17ec1ed0

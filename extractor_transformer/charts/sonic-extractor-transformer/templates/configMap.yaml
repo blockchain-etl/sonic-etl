@@ -1,0 +1,21 @@
+{{- if .Values.mainnet.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: extractor-transformer-config
+  namespace: {{ .Values.mainnet.namespace }}
+data: 
+  .env: |
+{{ .Values.mainnet.configMap.data | indent 4 }}
+---
+{{- end }}
+{{- if .Values.testnet.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: extractor-transformer-config
+  namespace: {{ .Values.testnet.namespace }}
+data: 
+  .env: |
+{{ .Values.testnet.configMap.data | indent 4 }}
+{{- end }}
